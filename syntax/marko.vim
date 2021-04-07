@@ -36,8 +36,11 @@ syntax match markoConditional "else" contained containedin=htmlTag
 " Block keywords.
 syntax match markoKeyword "await" contained containedin=htmlTag
 syntax match markoKeyword "@catch" contained containedin=htmlTag
+syntax match markoKeyword "/@catch" contained containedin=htmlTag
 syntax match markoKeyword "@then" contained containedin=htmlTag
+syntax match markoKeyword "/@then" contained containedin=htmlTag
 syntax match markoKeyword "@placeholder" contained containedin=htmlTag
+syntax match markoKeyword "/@placeholder" contained containedin=htmlTag
 syntax match markoKeyword "@include-text" contained containedin=htmlTag
 syntax match markoKeyword "@include-html" contained containedin=htmlTag
 syntax match markoKeyword "macro" contained containedin=htmlTag
@@ -108,6 +111,9 @@ endfor
 
 syntax region markoSurroundingTag contained start='class {'  end='}' fold contains=jsBlock,javascriptBlock,javaScript
 syntax region markoSurroundingTag contained start='style {' end='}' fold contains=cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier
+
+
+syntax region markoForParameter start='|' end='|' contains=jsIdentifier containedin=htmlTag
 
 " HTML Re-imagined
 let b:current_syntax = "marko"
