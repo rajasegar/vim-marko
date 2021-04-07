@@ -1,30 +1,30 @@
-Given svelte (an open tag right after a close tag):
+Given marko (an open tag right after a close tag):
   {#if something}
     {/if}
 
 Do (indent the block):
   vip=
 
-Expect svelte (matching indentation of the opening and closing tags):
+Expect marko (matching indentation of the opening and closing tags):
   {#if something}
   {/if}
 
 
-Given svelte (a svelte: tag):
-  <svelte:head>
+Given marko (a marko: tag):
+  <marko:head>
     <title>Foo</title>
-    </svelte:head>
+    </marko:head>
 
 Do (indent the block):
   vip=
 
-Expect svelte (an indented svelte: tag):
-  <svelte:head>
+Expect marko (an indented marko: tag):
+  <marko:head>
     <title>Foo</title>
-  </svelte:head>
+  </marko:head>
 
 
-Given svelte (a sequence of self-closing tags):
+Given marko (a sequence of self-closing tags):
   <Foo/>
     <Foo {bar}/>
       <Foo bar={bar}/>
@@ -33,14 +33,14 @@ Given svelte (a sequence of self-closing tags):
 Do (indent the block):
   vip=
 
-Expect svelte (an indented sequence of self-closing tags):
+Expect marko (an indented sequence of self-closing tags):
   <Foo/>
   <Foo {bar}/>
   <Foo bar={bar}/>
   <Foo bar="{bar}"/>
 
 
-Given svelte (a mix of self-closing and normal custom tags):
+Given marko (a mix of self-closing and normal custom tags):
   <Foo>
   <Bar/>
   </Foo>
@@ -54,7 +54,7 @@ Given svelte (a mix of self-closing and normal custom tags):
 Do (indent the block):
   vip=
 
-Expect svelte (an indented mix of self-closing and normal custom tags):
+Expect marko (an indented mix of self-closing and normal custom tags):
   <Foo>
     <Bar/>
   </Foo>
@@ -66,7 +66,7 @@ Expect svelte (an indented mix of self-closing and normal custom tags):
   </Foo>
 
 
-Given svelte (a combination of normal and capitalize tags):
+Given marko (a combination of normal and capitalize tags):
   <Foo>
     <Bar>
       <Baz />
@@ -81,7 +81,7 @@ Given svelte (a combination of normal and capitalize tags):
 Do (indent the block):
   vip=
 
-Expect svelte (indented block):
+Expect marko (indented block):
   <Foo>
     <Bar>
       <Baz />
@@ -94,7 +94,7 @@ Expect svelte (indented block):
   </Foo>
 
 
-Given svelte (namespaced tags):
+Given marko (namespaced tags):
   <Widget.Foo>
   <div>
       <Baz />
@@ -104,7 +104,7 @@ Given svelte (namespaced tags):
 Do (indent the block):
   vip=
 
-Expect svelte (indented block):
+Expect marko (indented block):
   <Widget.Foo>
     <div>
       <Baz />
@@ -112,39 +112,39 @@ Expect svelte (indented block):
   </Widget.Foo>
 
 
-Given svelte (outdented style tag):
-  <style>
+Given marko (outdented style tag):
+  style {
   .foo {
         bar: 1;
     }
-  </style>
+  }
 
 Do (indent the block):
   vip=
 
-Expect svelte (indented style tag):
-  <style>
+Expect marko (indented style tag):
+  style {
     .foo {
       bar: 1;
     }
-  </style>
+  }
 
 
-Given svelte (outdented script tag):
-  <script>
+Given marko (outdented script tag):
+  class {
   import { foo } from "./stores.js"
-  </script>
+  }
 
 Do (indent the block):
   vip=
 
-Expect svelte (indented script tag):
-  <script>
+Expect marko (indented script tag):
+  class {
     import { foo } from "./stores.js"
-  </script>
+  }
 
 
-Given svelte (uneven script tag):
+Given marko (uneven script tag):
   <script>
     let name;
       let text
@@ -156,7 +156,7 @@ Given svelte (uneven script tag):
 Do (indent the tag):
   vit=
 
-Expect svelte (indented script tag):
+Expect marko (indented script tag):
   <script>
     let name;
     let text
@@ -167,9 +167,9 @@ Expect svelte (indented script tag):
 
 
 Execute (turn off script indenting):
-  let g:svelte_indent_script = 0
+  let g:marko_indent_script = 0
 
-Given svelte (an outdented script tag):
+Given marko (an outdented script tag):
   <script>
   import { foo } from "./stores.js"
   </script>
@@ -177,19 +177,19 @@ Given svelte (an outdented script tag):
 Do (indent the block):
   vip=
 
-Expect svelte (an outdented script tag):
+Expect marko (an outdented script tag):
   <script>
   import { foo } from "./stores.js"
   </script>
 
 Execute (reset script indenting):
-  unlet g:svelte_indent_script
+  unlet g:marko_indent_script
 
 
 Execute (turn off style indenting):
-  let g:svelte_indent_style = 0
+  let g:marko_indent_style = 0
 
-Given svelte (an outdented style tag):
+Given marko (an outdented style tag):
   <style>
   .foo {
     bar: 1;
@@ -199,7 +199,7 @@ Given svelte (an outdented style tag):
 Do (indent the block):
   vip=
 
-Expect svelte (an outdented style tag):
+Expect marko (an outdented style tag):
   <style>
   .foo {
     bar: 1;
@@ -207,4 +207,4 @@ Expect svelte (an outdented style tag):
   </style>
 
 Execute (reset style indenting):
-  unlet g:svelte_indent_style
+  unlet g:marko_indent_style

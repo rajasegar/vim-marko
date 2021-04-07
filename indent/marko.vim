@@ -52,8 +52,8 @@ function! GetmarkoIndent()
 
   let current_line = getline(current_line_number)
 
-  " Opening script and style tags should be all the way outdented.
-  if current_line =~ '^\s*</\?\(script\|style\)'
+  " Opening class and style tags should be all the way outdented.
+  if current_line =~ '^\s*\(class\|style\)\s*\{'
     return 0
   endif
 
@@ -61,8 +61,8 @@ function! GetmarkoIndent()
   let previous_line = getline(previous_line_number)
   let previous_line_indent = indent(previous_line_number)
 
-  " The inside of scripts an styles should be indented unless disabled.
-  if previous_line =~ '^\s*<script'
+  " The inside of class and style should be indented unless disabled.
+  if previous_line =~ '^\s*class\s*{'
     if g:marko_indent_script
       return previous_line_indent + shiftwidth()
     else
@@ -70,7 +70,7 @@ function! GetmarkoIndent()
     endif
   endif
 
-  if previous_line =~ '^\s*<style'
+  if previous_line =~ '^\s*style\s*{'
     if g:marko_indent_style
       return previous_line_indent + shiftwidth()
     else
@@ -82,7 +82,7 @@ function! GetmarkoIndent()
 
   " For some reason, the HTML CSS indentation keeps indenting the next line over
   " and over after each style declaration.
-  if searchpair('<style>', '', '</style>', 'bW') && previous_line =~ ';$' && current_line !~ '}'
+  if searchpair('style {', '', '}', 'bW') && previous_line =~ ';$' && current_line !~ '}'
     return previous_line_indent
   endif
 

@@ -20,36 +20,36 @@ unlet! b:current_syntax
 " Expand HTML tag names to include mixed case, periods, and colons.
 syntax match htmlTagName contained "\<[a-zA-Z:\.]*\>"
 
-" Special attributes that include some kind of binding e.g. "on:click",
+" Special attributes that include some kind of binding e.g. "on-click",
 " "bind:something", etc.
-syntax match markoKeyword "\<[a-z]\+:[a-zA-Z|]\+=" contained containedin=htmlTag
+syntax match markoKeyword "\<[a-z]\+-[a-zA-Z|]\+=" contained containedin=htmlTag
 
 " The "slot" attribute has special meaning.
 syntax keyword markoKeyword slot contained containedin=htmlTag
 
 " According to vim-jsx, you can let jsBlock take care of ending the region.
 "   https://github.com/mxw/vim-jsx/blob/master/after/syntax/jsx.vim
-syntax region markoExpression start="{" end="" contains=jsBlock,javascriptBlock containedin=htmlString,htmlTag,htmlArg,htmlValue,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,htmlHead,htmlTitle,htmlBoldItalicUnderline,htmlUnderlineBold,htmlUnderlineItalicBold,htmlUnderlineBoldItalic,htmlItalicUnderline,htmlItalicBold,htmlItalicBoldUnderline,htmlItalicUnderlineBold,htmlLink,htmlLeadingSpace,htmlBold,htmlBoldUnderline,htmlBoldItalic,htmlBoldUnderlineItalic,htmlUnderline,htmlUnderlineItalic,htmlItalic,htmlStrike,javaScript
+syntax region markoExpression start="${" end="" contains=jsBlock,javascriptBlock containedin=htmlString,htmlTag,htmlArg,htmlValue,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,htmlHead,htmlTitle,htmlBoldItalicUnderline,htmlUnderlineBold,htmlUnderlineItalicBold,htmlUnderlineBoldItalic,htmlItalicUnderline,htmlItalicBold,htmlItalicBoldUnderline,htmlItalicUnderlineBold,htmlLink,htmlLeadingSpace,htmlBold,htmlBoldUnderline,htmlBoldItalic,htmlBoldUnderlineItalic,htmlUnderline,htmlUnderlineItalic,htmlItalic,htmlStrike,javaScript
 
 " Block conditionals.
-syntax match markoConditional "#if" contained containedin=jsBlock,javascriptBlock
-syntax match markoConditional "/if" contained containedin=jsBlock,javascriptBlock
-syntax match markoConditional ":else if" contained containedin=jsBlock,javascriptBlock
-syntax match markoConditional ":else" contained containedin=jsBlock,javascriptBlock
+syntax match markoConditional "<if" contained containedin=jsBlock,javascriptBlock
+syntax match markoConditional "</if>" contained containedin=jsBlock,javascriptBlock
+syntax match markoConditional "<else-if" contained containedin=jsBlock,javascriptBlock
+syntax match markoConditional "<else" contained containedin=jsBlock,javascriptBlock
 
 " Block keywords.
-syntax match markoKeyword "#await" contained containedin=jsBlock,javascriptBlock
-syntax match markoKeyword "/await" contained containedin=jsBlock,javascriptBlock
-syntax match markoKeyword ":catch" contained containedin=jsBlock,javascriptBlock
-syntax match markoKeyword ":then" contained containedin=jsBlock,javascriptBlock
+syntax match markoKeyword "<await" contained containedin=jsBlock,javascriptBlock
+syntax match markoKeyword "</await>" contained containedin=jsBlock,javascriptBlock
+syntax match markoKeyword "<@catch" contained containedin=jsBlock,javascriptBlock
+syntax match markoKeyword "<@then" contained containedin=jsBlock,javascriptBlock
 
 " Inline keywords.
 syntax match markoKeyword "@html" contained containedin=jsBlock,javascriptBlock
 syntax match markoKeyword "@debug" contained containedin=jsBlock,javascriptBlock
 
 " Repeat functions.
-syntax match markoRepeat "#each" contained containedin=jsBlock,javascriptBlock
-syntax match markoRepeat "/each" contained containedin=jsBlock,javascriptBlock
+syntax match markoRepeat "<for" contained containedin=jsBlock,javascriptBlock
+syntax match markoRepeat "</for>" contained containedin=jsBlock,javascriptBlock
 
 highlight def link markoConditional Conditional
 highlight def link markoKeyword Keyword
@@ -111,7 +111,7 @@ for s:language in s:languages
   endif
 endfor
 
-syntax region markoSurroundingTag contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
+syntax region markoSurroundingTag contained start=+\(class\|style\)+ end=+}+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 
 " HTML Re-imagined
 let b:current_syntax = "marko"

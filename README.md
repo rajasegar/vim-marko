@@ -33,13 +33,13 @@ The simplest way to install vim-marko is via a package manager like
 For example, using minpac:
 
 ```vimscript
-call minpac#add('evanleck/vim-marko')
+call minpac#add('rajasegar/vim-marko')
 ```
 
 Or using Plug:
 
 ```vimscript
-Plug 'evanleck/vim-marko', {'branch': 'main'}
+Plug 'rajasegar/vim-marko', {'branch': 'main'}
 ```
 
 vim-marko works just fine with Vim 8's native package loading as well, that's
