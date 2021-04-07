@@ -12,7 +12,7 @@ Highlighting includes:
 - HTML attributes with a colon like `on-click` highlighted as `Keyword`.
 - `<if>`, `</if>`, `<else>`, and `<else-if>` highlighted as `Conditional`.
 - `<await>`, `</await>`, `<@catch>`, `<@then>` highlighted as `Keyword`.
-- `#each` and `/each` highlighted as `Repeat`.
+- `<for>` and `<while>` highlighted as `Repeat`.
 
 
 ## Dependencies

@@ -35,15 +35,15 @@ unlet! b:did_indent
 let s:html_indent = &l:indentexpr
 let b:did_indent = 1
 
-setlocal indentexpr=GetmarkoIndent()
-setlocal indentkeys=o,O,*<Return>,<>>,{,},0),0],!^F,;,=:else,=:then,=:catch,=/if,=/each,=/await
+setlocal indentexpr=GetMarkoIndent()
+setlocal indentkeys=o,O,*<Return>,<>>,{,},0),0],!^F,;,=/else,=/else-if,=/@then,=/@catch,=/@placeholder,=/if,=/for,=/await,=/while,=/macro
 
 " Only define the function once.
-if exists('*GetmarkoIndent')
+if exists('*GetMarkoIndent')
   finish
 endif
 
-function! GetmarkoIndent()
+function! GetMarkoIndent()
   let current_line_number = v:lnum
 
   if current_line_number == 0
@@ -136,21 +136,6 @@ function! GetmarkoIndent()
   " ":else" or ":then"
   if previous_line =~ '^\s*{\s*:\(else\|catch\|then\)'
     return previous_line_indent + shiftwidth()
-  endif
-
-  " Custom element juggling for abnormal self-closing tags (<Widget />),
-  " capitalized component tags (<Widget></Widget>), and custom marko tags
-  " (<marko:head></marko:head>).
-  if synID(previous_line_number, match(previous_line, '\S') + 1, 0) == hlID('htmlTag')
-        \ && synID(current_line_number, match(current_line, '\S') + 1, 0) != hlID('htmlEndTag')
-    let indents_match = indent == previous_line_indent
-    let previous_closes = previous_line =~ '/>$'
-
-    if indents_match && !previous_closes && previous_line =~ '<\(\u\|\l\+:\l\+\)'
-      return previous_line_indent + shiftwidth()
-    elseif !indents_match && previous_closes
-      return previous_line_indent
-    endif
   endif
 
   return indent
