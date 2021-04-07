@@ -20,10 +20,6 @@ unlet! b:current_syntax
 " Expand HTML tag names to include mixed case, periods, and colons.
 syntax match htmlTagName contained "\<[a-zA-Z:\.]*\>"
 
-" Special attributes that include some kind of binding e.g. "on-click",
-" "bind:something", etc.
-syntax match markoKeyword "\<[a-z]\+-[a-zA-Z|]\+=" contained containedin=htmlTag
-
 " According to vim-jsx, you can let jsBlock take care of ending the region.
 "   https://github.com/mxw/vim-jsx/blob/master/after/syntax/jsx.vim
 syntax region markoExpression start="${" end="" contains=jsBlock,javascriptBlock containedin=htmlString,htmlTag,htmlArg,htmlValue,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6,htmlHead,htmlTitle,htmlBoldItalicUnderline,htmlUnderlineBold,htmlUnderlineItalicBold,htmlUnderlineBoldItalic,htmlItalicUnderline,htmlItalicBold,htmlItalicBoldUnderline,htmlItalicUnderlineBold,htmlLink,htmlLeadingSpace,htmlBold,htmlBoldUnderline,htmlBoldItalic,htmlBoldUnderlineItalic,htmlUnderline,htmlUnderlineItalic,htmlItalic,htmlStrike,javaScript
@@ -110,7 +106,12 @@ for s:language in s:languages
 endfor
 
 syntax region markoSurroundingTag contained start='class {'  end='}' fold contains=jsBlock,javascriptBlock,javaScript
-syntax region markoSurroundingTag contained start='style {' end='}' fold contains=cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier
+
+syntax include @htmlCss syntax/css.vim
+unlet b:current_syntax
+syntax region markoStyle start=+style {+ keepend end=+}+ contains=@htmlCss,htmlTag,htmlEndTag,htmlCssStyleComment,@htmlPreproc
+ 
+"syntax region markoSurroundingTag contained start='style {' end='}' fold contains=cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier
 
 
 syntax region markoForParameter start='|' end='|' contains=jsIdentifier containedin=htmlTag
