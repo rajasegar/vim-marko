@@ -105,14 +105,19 @@ for s:language in s:languages
   endif
 endfor
 
-syntax region markoSurroundingTag contained start='class {'  end='}' fold contains=jsBlock,javascriptBlock,javaScript
 
+" JAVA SCRIPT
+syntax include @htmlJavaScript syntax/javascript.vim
+unlet b:current_syntax
+syntax region  markoJavaScript start=+class {+ keepend end=+}+me=s-1 contains=@htmlJavaScript,htmlCssStyleComment,htmlScriptTag,@htmlPreproc
+
+"syntax region markoSurroundingTag contained start='class {'  end='}' fold contains=jsBlock,javascriptBlock,javaScript
+
+" CSS
 syntax include @htmlCss syntax/css.vim
 unlet b:current_syntax
-syntax region markoStyle start=+style {+ keepend end=+}+ contains=@htmlCss,htmlTag,htmlEndTag,htmlCssStyleComment,@htmlPreproc
+syntax region markoStyle start=+style {+ keepend end=+}+ fold contains=@htmlCss,htmlTag,htmlEndTag,htmlCssStyleComment,@htmlPreproc
  
-"syntax region markoSurroundingTag contained start='style {' end='}' fold contains=cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier
-
 
 syntax region markoForParameter start='|' end='|' contains=jsIdentifier containedin=htmlTag
 
